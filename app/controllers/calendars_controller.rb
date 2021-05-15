@@ -36,11 +36,17 @@ class CalendarsController < ApplicationController
       end
 
 
-      wday_num =  Date.today.wday + x
+      wday_num =  Date.today.wday + x 0...31
       if wday_num <= 7
+        wday_num
+      else wday_num > 7 && wday_num <= 13
         wday_num = wday_num - 7
-      else wday_num > 7
-        wday_num = (wday_num % 7 )- 7
+      else wday_num > 14 && wday_num <= 20
+        wday_num = wday_num - 14
+      else wday_num > 21 && wday_num <= 28
+        wday_num = wday_num - 21
+      else wday_num > 28 
+        wday_num = wday_num - 28
       end
 
       days = { month: (@todays_date + x).month, date: (@todays_date+x).day, plans: today_plans, wdays: wdays[wday_num]  }
